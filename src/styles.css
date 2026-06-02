@@ -444,7 +444,11 @@ main,
 
 .timeline-rail {
   position: relative;
-  min-height: 300px;
+  min-height: 260px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  gap: 14px;
+  align-items: stretch;
   padding: 30px 18px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -454,7 +458,7 @@ main,
 .timeline-rail::before {
   content: "";
   position: absolute;
-  top: 50%;
+  top: 42px;
   left: 42px;
   right: 42px;
   height: 3px;
@@ -462,36 +466,20 @@ main,
 }
 
 .timeline-node {
-  position: absolute;
-  top: calc(50% - 16px);
-  width: min(168px, 22vw);
-  min-height: 130px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 142px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
-  padding: 0;
+  padding: 16px 14px;
   color: var(--muted);
-  border: 0;
-  background: transparent;
-  text-align: center;
-}
-
-.timeline-node-1 {
-  left: 7%;
-}
-
-.timeline-node-2 {
-  left: 35%;
-}
-
-.timeline-node-3 {
-  left: 63%;
-}
-
-.timeline-node-4 {
-  left: 86%;
-  transform: translateX(-50%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.94);
+  text-align: left;
 }
 
 .timeline-node::before {
@@ -512,6 +500,7 @@ main,
 
 .timeline-node strong {
   color: var(--ink);
+  overflow-wrap: anywhere;
 }
 
 .timeline-node.is-active::before {
@@ -651,7 +640,12 @@ main,
 
 .signal-map {
   position: relative;
-  height: 300px;
+  min-height: 300px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-content: center;
+  padding: 34px 0 6px;
 }
 
 .signal-line {
@@ -662,11 +656,14 @@ main,
 }
 
 .map-node {
-  position: absolute;
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  max-width: 180px;
+  width: 100%;
+  min-height: 58px;
+  max-width: none;
   padding: 10px 12px;
   color: #d9fffb;
   border: 1px solid rgba(124, 231, 220, 0.36);
@@ -674,31 +671,13 @@ main,
   background: rgba(8, 123, 122, 0.32);
   font-size: 0.82rem;
   font-weight: 850;
+  text-align: left;
+  overflow-wrap: anywhere;
 }
 
 .map-node.is-active {
   color: #04292d;
   background: #7ce7dc;
-}
-
-.node-1 {
-  left: 8%;
-  top: 24%;
-}
-
-.node-2 {
-  right: 10%;
-  top: 18%;
-}
-
-.node-3 {
-  left: 18%;
-  bottom: 18%;
-}
-
-.node-4 {
-  right: 18%;
-  bottom: 16%;
 }
 
 .detail-panel {
@@ -1112,6 +1091,24 @@ address span {
   .demo-split,
   .profile-columns {
     grid-template-columns: 1fr;
+  }
+
+  .project-map-panel {
+    min-height: auto;
+  }
+
+  .signal-map {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    padding: 14px 0 0;
+  }
+
+  .signal-line {
+    display: none;
+  }
+
+  .map-node {
+    min-height: 0;
   }
 
   .timeline-rail {
