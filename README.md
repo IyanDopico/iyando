@@ -1,49 +1,58 @@
 # Iyán Dopico Martínez - Portfolio
 
-Repositorio de la página personal de Iyán Dopico Martínez. Es una web estática, sin paso de build, pensada para publicarse directamente en Cloudflare Pages o GitHub Pages.
+Repositorio de la página personal de Iyán Dopico Martínez. Es una app React + Vite estática, pensada para publicarse en Cloudflare Pages o GitHub Pages desde el directorio `dist`.
 
 ## Estructura
 
 ```text
 .
 +-- index.html
-+-- 404.html
-+-- _headers
-+-- .nojekyll
-+-- assets/
-|   +-- files/
-|   |   +-- cv-iyan-dopico.pdf
-|   +-- images/
-|   |   +-- fotoperfil-iyan.png
-|   +-- styles/
-|       +-- main.css
++-- package.json
++-- vite.config.ts
++-- src/
+|   +-- App.tsx
+|   +-- components/
+|   +-- content/
+|   +-- data/
++-- public/
+|   +-- 404.html
+|   +-- _headers
+|   +-- .nojekyll
+|   +-- assets/
+|       +-- files/
+|       +-- images/
 +-- README.md
 ```
 
 ## Desarrollo local
 
-La página funciona abriendo `index.html` directamente en el navegador. Si prefieres servirla con un servidor local:
+Instala dependencias y arranca Vite:
 
 ```powershell
-python -m http.server 8000
+npm.cmd install
+npm.cmd run dev
 ```
 
-Después abre `http://localhost:8000`.
+Para generar la versión publicable:
+
+```powershell
+npm.cmd run build
+```
 
 ## Despliegue en Cloudflare Pages
 
 1. Crea un proyecto nuevo conectado a este repositorio.
-2. Usa el preset `None` o `Static site`.
-3. Deja el comando de build vacío.
-4. Usa `.` como directorio de salida.
+2. Usa el preset `Vite` o `Static site`.
+3. Usa `npm.cmd run build` como comando de build.
+4. Usa `dist` como directorio de salida.
 
 El archivo `_headers` se aplicará automáticamente en Cloudflare Pages.
 
 ## Despliegue en GitHub Pages
 
 1. Entra en `Settings` > `Pages`.
-2. Selecciona `Deploy from a branch`.
-3. Elige la rama principal y la carpeta `/ (root)`.
-4. Guarda los cambios.
+2. En `Build and deployment`, selecciona `GitHub Actions`.
+3. Usa el workflow incluido en `.github/workflows/pages.yml`.
+4. Cada push a `main` compilará Vite y publicará `dist`.
 
 El archivo `.nojekyll` evita que GitHub Pages intente procesar el sitio con Jekyll.
