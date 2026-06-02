@@ -1,6 +1,6 @@
-# Iyán Dopico Martínez - Portfolio
+# Iyan Dopico Martinez - Portfolio
 
-Repositorio de la página personal de Iyán Dopico Martínez. Es una app React + Vite estática, pensada para publicarse en Cloudflare Pages o GitHub Pages desde el directorio `dist`.
+Repositorio de la pagina personal de Iyan Dopico Martinez. Es una app React + Vite estatica, pensada para publicarse en Cloudflare Pages, Cloudflare Workers con static assets o GitHub Pages desde el directorio `dist`.
 
 ## Estructura
 
@@ -21,38 +21,60 @@ Repositorio de la página personal de Iyán Dopico Martínez. Es una app React +
 |   +-- assets/
 |       +-- files/
 |       +-- images/
++-- wrangler.jsonc
 +-- README.md
 ```
 
 ## Desarrollo local
 
-Instala dependencias y arranca Vite:
+Instala dependencias y arranca Vite en Windows:
 
 ```powershell
 npm.cmd install
 npm.cmd run dev
 ```
 
-Para generar la versión publicable:
+Para generar la version publicable:
 
 ```powershell
 npm.cmd run build
 ```
 
+En Linux/macOS o en CI, usa `npm`, no `npm.cmd`:
+
+```bash
+npm install
+npm run build
+```
+
 ## Despliegue en Cloudflare Pages
 
-1. Crea un proyecto nuevo conectado a este repositorio.
-2. Usa el preset `Vite` o `Static site`.
-3. Usa `npm.cmd run build` como comando de build.
-4. Usa `dist` como directorio de salida.
+En el dashboard de Cloudflare Pages:
 
-El archivo `_headers` se aplicará automáticamente en Cloudflare Pages.
+- `Root directory`: vacio o `/`
+- `Build command`: `npm run build`
+- `Build output directory`: `dist`
+- `Deploy command`: vacio
+
+No configures `dist` como `Root directory`: esa carpeta se crea despues de ejecutar el build.
+
+El archivo `_headers` se aplica automaticamente en Cloudflare Pages.
+
+## Despliegue en Cloudflare Workers con static assets
+
+Si el proyecto esta configurado como Worker, no como Pages:
+
+- `Root directory`: vacio o `/`
+- `Build command`: `npm run build`
+- `Deploy command`: `npx wrangler deploy`
+
+El archivo `wrangler.jsonc` usa `dist` como carpeta de assets.
 
 ## Despliegue en GitHub Pages
 
 1. Entra en `Settings` > `Pages`.
 2. En `Build and deployment`, selecciona `GitHub Actions`.
 3. Usa el workflow incluido en `.github/workflows/pages.yml`.
-4. Cada push a `main` compilará Vite y publicará `dist`.
+4. Cada push a `main` compilara Vite y publicara `dist`.
 
 El archivo `.nojekyll` evita que GitHub Pages intente procesar el sitio con Jekyll.
